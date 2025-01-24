@@ -1,17 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argocd-kube-deploy
+  name: rakuraku-deploy
 spec:
   replicas: 2
   selector:
     matchLabels:
-      run: argocd-kube
+      run: rakuraku
   template:
     metadata:
       labels:
-        run: argocd-kube
+        run: rakuraku
     spec:
       containers:
-      - image: 
-        name: argocd-kube
+      - name: rakuraku
+        image: gksmmf031/rakuraku:latest  # Docker Hub에 푸시된 실제 이미지 이름과 태그
+        ports:
+        - containerPort: 80
+
