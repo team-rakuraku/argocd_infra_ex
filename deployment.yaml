@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rakuraku
-        image: gksmmf031/rakuraku:latest  # Docker Hub에 푸시된 실제 이미지 이름과 태그
+        image: gksmmf031/rakuraku:latest  # Docker Hub 이미지 이름
         ports:
-        - containerPort: 80
+        - containerPort: 3000  # 애플리케이션 내부에서 사용하는 포트
 

@@ -6,7 +6,7 @@ spec:
   selector:
     run: rakuraku  # deployment.yaml의 labels와 일치
   ports:
-  - port: 80
-    targetPort: 80  # deployment.yaml의 containerPort와 일치
+  - port: 4000          # 클라이언트가 접속하는 외부 노출 포트
+    targetPort: 3000    # 컨테이너 내부에서 사용하는 포트
   type: LoadBalancer
 
