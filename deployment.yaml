@@ -6,12 +6,21 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      run: rakuraku
+      app: rakuraku
   template:
     metadata:
       labels:
-        run: rakuraku
+        app: rakuraku
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: role
+                operator: In
+                values:
+                - cicd
       containers:
       - name: rakuraku
         image: gksmmf031/rakuraku:latest  # Docker Hub 이미지 이름
