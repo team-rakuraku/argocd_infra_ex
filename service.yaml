@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rakuraku-svc
+  namespace: argocd
 spec:
   selector:
-    matchLabels:
-      app: rakuraku
-    run: rakuraku  # deployment.yaml의 labels와 일치
+    app: rakuraku  # Deployment의 matchLabels와 동일해야 함
   ports:
-  - port: 4000          # 클라이언트가 접속하는 외부 노출 포트
-    targetPort: 3000    # 컨테이너 내부에서 사용하는 포트
+  - protocol: TCP
+    port: 4000      # LoadBalancer가 외부에서 연결할 포트
+    targetPort: 4000  # Pod 내부 컨테이너 포트와 일치해야 함
   type: LoadBalancer
 
