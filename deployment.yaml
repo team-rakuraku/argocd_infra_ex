@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: gksmmf031/rakuraku:131
+        image: gksmmf031/rakuraku:132
         env:
         - name: RDS_HOST
           value: "{{ awssecretsmanager.secret.backend.rds_host }}"
