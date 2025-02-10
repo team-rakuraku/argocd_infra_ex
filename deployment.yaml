@@ -24,7 +24,7 @@ spec:
                 - cicd
       containers:
       - name: rakuraku
-        image: gksmmf031/rakuraku:117
+        image: gksmmf031/rakuraku:118
         ports:
         - containerPort: 4000  # service.yaml과 일치
 
