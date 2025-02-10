@@ -2,8 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  namespace: argocd
 spec:
   replicas: 2
+  selector: # 필수 필드 추가
+    matchLabels:
+      app: backend
   template:
     metadata:
       labels:
@@ -11,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: gksmmf031/rakuraku:<image-tag>
+        image: gksmmf031/rakuraku:131
         env:
         - name: RDS_HOST
           value: "{{ awssecretsmanager.secret['/secret/backend'].rds_host }}"
