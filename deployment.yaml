@@ -24,7 +24,43 @@ spec:
                 - cicd
       containers:
       - name: rakuraku
-        image: gksmmf031/rakuraku:120
+        image: gksmmf031/rakuraku:118
         ports:
         - containerPort: 4000  # service.yaml과 일치
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_HOST
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_PASSWORD
+        - name: MONGO_HOST
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: MONGO_HOST
+        - name: MONGO_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: MONGO_USER
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: MONGO_PASSWORD
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: JWT_SECRET
 
