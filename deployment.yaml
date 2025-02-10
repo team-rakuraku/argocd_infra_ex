@@ -1,66 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rakuraku-deploy
-  namespace: argocd  # service와 같은 네임스페이스로 설정
+  name: backend
 spec:
   replicas: 2
-  selector:
-    matchLabels:
-      app: rakuraku
   template:
     metadata:
       labels:
-        app: rakuraku
+        app: backend
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: role
-                operator: In
-                values:
-                - cicd
       containers:
-      - name: rakuraku
+      - name: backend
         image: gksmmf031/rakuraku:131
-        ports:
-        - containerPort: 4000  # service.yaml과 일치
         env:
-        - name: DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_HOST
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_USER
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_PASSWORD
+        - name: RDS_HOST
+          value: "{{ awssecretsmanager.secret.backend.rds_host }}"
+        - name: RDS_USER
+          value: "{{ awssecretsmanager.secret.backend.rds_user }}"
+        - name: RDS_PASSWORD
+          value: "{{ awssecretsmanager.secret.backend.rds_password }}"
         - name: MONGO_HOST
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: MONGO_HOST
+          value: "{{ awssecretsmanager.secret.backend.mongo_host }}"
         - name: MONGO_USER
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: MONGO_USER
+          value: "{{ awssecretsmanager.secret.backend.mongo_user }}"
         - name: MONGO_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: MONGO_PASSWORD
+          value: "{{ awssecretsmanager.secret.backend.mongo_password }}"
         - name: JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: JWT_SECRET
+          value: "{{ awssecretsmanager.secret.backend.jwt_secret }}"
 
