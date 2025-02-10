@@ -11,20 +11,20 @@ spec:
     spec:
       containers:
       - name: backend
-        image: gksmmf031/rakuraku:132
+        image: gksmmf031/rakuraku:<image-tag>
         env:
         - name: RDS_HOST
-          value: "{{ awssecretsmanager.secret.backend.rds_host }}"
+          value: "{{ awssecretsmanager.secret['/secret/backend'].rds_host }}"
         - name: RDS_USER
-          value: "{{ awssecretsmanager.secret.backend.rds_user }}"
+          value: "{{ awssecretsmanager.secret['/secret/backend'].rds_user }}"
         - name: RDS_PASSWORD
-          value: "{{ awssecretsmanager.secret.backend.rds_password }}"
+          value: "{{ awssecretsmanager.secret['/secret/backend'].rds_password }}"
         - name: MONGO_HOST
-          value: "{{ awssecretsmanager.secret.backend.mongo_host }}"
+          value: "{{ awssecretsmanager.secret['/secret/backend'].mongo_host }}"
         - name: MONGO_USER
-          value: "{{ awssecretsmanager.secret.backend.mongo_user }}"
+          value: "{{ awssecretsmanager.secret['/secret/backend'].mongo_user }}"
         - name: MONGO_PASSWORD
-          value: "{{ awssecretsmanager.secret.backend.mongo_password }}"
+          value: "{{ awssecretsmanager.secret['/secret/backend'].mongo_password }}"
         - name: JWT_SECRET
-          value: "{{ awssecretsmanager.secret.backend.jwt_secret }}"
+          value: "{{ awssecretsmanager.secret['/secret/backend'].jwt_secret }}"
 
