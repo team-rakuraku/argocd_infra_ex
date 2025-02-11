@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gksmmf031/rakuraku:42
+          image: gksmmf031/rakuraku:43
           ports:
             - containerPort: 8080  # Spring Boot 기본 포트 (application.properties에 맞춰야 함)
           env:
