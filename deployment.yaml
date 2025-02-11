@@ -20,8 +20,8 @@ spec:
             - containerPort: 8085
           volumeMounts:
             - name: ssh-key-volume
-              mountPath: /root/.ssh
-              readOnly: true
+              mountPath: /app/.ssh
+              readOnly: false
       volumes:
         - name: ssh-key-volume
           secret:
