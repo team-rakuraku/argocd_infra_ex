@@ -2,10 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: argocd
+  namespace: argocd  # 네임스페이스 확인! (필요하면 수정)
+  labels:
+    app: backend
 spec:
-  replicas: 2
-  selector: # 필수 필드 추가
+  replicas: 2  # 실행할 백엔드 Pod 개수 (필요에 따라 조정)
+  selector:
     matchLabels:
       app: backend
   template:
@@ -14,21 +16,32 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: gksmmf031/rakuraku:39
-        env:
-        - name: RDS_HOST
-          value: "{{ awssecretsmanager.secret['/secret/backend'].rds_host }}"
-        - name: RDS_USER
-          value: "{{ awssecretsmanager.secret['/secret/backend'].rds_user }}"
-        - name: RDS_PASSWORD
-          value: "{{ awssecretsmanager.secret['/secret/backend'].rds_password }}"
-        - name: MONGO_HOST
-          value: "{{ awssecretsmanager.secret['/secret/backend'].mongo_host }}"
-        - name: MONGO_USER
-          value: "{{ awssecretsmanager.secret['/secret/backend'].mongo_user }}"
-        - name: MONGO_PASSWORD
-          value: "{{ awssecretsmanager.secret['/secret/backend'].mongo_password }}"
-        - name: JWT_SECRET
-          value: "{{ awssecretsmanager.secret['/secret/backend'].jwt_secret }}"
+        - name: backend
+          image: gksmmf031/rakuraku:39
+          ports:
+            - containerPort: 8080  # Spring Boot 기본 포트 (application.properties에 맞춰야 함)
+          env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: DB_HOST
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: DB_PASSWORD
+          volumeMounts:
+            - name: ssh-key-volume
+              mountPath: /root/.ssh
+              readOnly: true
+      volumes:
+        - name: ssh-key-volume
+          secret:
+            secretName: mongo-ssh-key
 
