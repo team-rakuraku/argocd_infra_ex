@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gksmmf031/rakuraku:42  # 최신 태그로 변경 필요
+          image: gksmmf031/rakuraku:45
           ports:
             - containerPort: 8085
           volumeMounts:
