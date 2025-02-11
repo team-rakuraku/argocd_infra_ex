@@ -5,10 +5,9 @@ metadata:
   namespace: argocd
 spec:
   selector:
-    app: rakuraku  # Deployment의 matchLabels와 동일해야 함
+    app: backend  # Deployment의 matchLabels와 동일해야 함
   ports:
   - protocol: TCP
-    port: 4000      # LoadBalancer가 외부에서 연결할 포트
-    targetPort: 4000  # Pod 내부 컨테이너 포트와 일치해야 함
+    port: 4000      # 외부 접근 포트
+    targetPort: 8085  # 컨테이너 내부 애플리케이션 포트
   type: LoadBalancer
-

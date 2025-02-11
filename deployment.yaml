@@ -2,11 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: argocd  # 네임스페이스 확인! (필요하면 수정)
-  labels:
-    app: backend
+  namespace: argocd
 spec:
-  replicas: 2  # 실행할 백엔드 Pod 개수 (필요에 따라 조정)
+  replicas: 2
   selector:
     matchLabels:
       app: backend
@@ -17,25 +15,9 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gksmmf031/rakuraku:44
+          image: gksmmf031/rakuraku:42  # 최신 태그로 변경 필요
           ports:
-            - containerPort: 8080  # Spring Boot 기본 포트 (application.properties에 맞춰야 함)
-          env:
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: DB_HOST
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: DB_USER
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: DB_PASSWORD
+            - containerPort: 8085
           volumeMounts:
             - name: ssh-key-volume
               mountPath: /root/.ssh
@@ -44,4 +26,3 @@ spec:
         - name: ssh-key-volume
           secret:
             secretName: mongo-ssh-key
-
