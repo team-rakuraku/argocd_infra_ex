@@ -3,11 +3,24 @@ kind: Service
 metadata:
   name: rakuraku-svc
   namespace: argocd
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "alb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-northeast-2:941377151595:certificate/19e44143-2bad-41c1-9094-d73daee741d9"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "HTTP"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
 spec:
   selector:
     app: backend  # Deployment의 matchLabels와 동일해야 함
   ports:
-  - protocol: TCP
-    port: 8085      # 외부 접근 포트
-    targetPort: 8085  # 컨테이너 내부 애플리케이션 포트
+    - name: http
+      protocol: TCP
+      port: 80      # ALB에서 받는 포트 (HTTP)
+      targetPort: 8085  # 컨테이너 내부 애플리케이션 포트
+    - name: https
+      protocol: TCP
+      port: 443     # ALB에서 HTTPS 트래픽 받기
+      targetPort: 8085
   type: LoadBalancer
+
