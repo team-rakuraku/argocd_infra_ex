@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gksmmf031/rakuraku:52
+          image: gksmmf031/rakuraku:53
           ports:
             - containerPort: 8085
           volumeMounts:
