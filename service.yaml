@@ -17,5 +17,5 @@ spec:
       protocol: TCP
       port: 80  # ALB에서 받는 포트
       targetPort: 8085  # 내부 애플리케이션의 포트
-  type: ClusterIP
+  type: NodePort
 
