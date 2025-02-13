@@ -7,7 +7,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/backend-protocol: HTTP  # 💡 백엔드는 HTTP로 받도록 설정
-    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:941377151595:certificate/..."
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:941377151595:certificate/19e44143-2bad-41c1-9094-d73daee741d9"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
     alb.ingress.kubernetes.io/healthcheck-port: "8085"
