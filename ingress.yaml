@@ -4,13 +4,16 @@ metadata:
   name: rakuraku-ingress
   namespace: argocd
   annotations:
-    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/backend-protocol: HTTPS
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:941377151595:certificate/19e44143-2bad-41c1-9094-d73daee741d9"
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: "8085"
+    alb.ingress.kubernetes.io/healthcheck-path: /v1/sys/health
 spec:
+  ingressClassName: alb
   rules:
   - host: han0321.shop  # 여기에 도메인 설정
     http:
@@ -21,5 +24,5 @@ spec:
           service:
             name: rakuraku-svc  # 연결할 서비스 이름
             port:
-              number: 8085
+              number: 80
 
