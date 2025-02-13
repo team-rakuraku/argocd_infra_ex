@@ -11,7 +11,7 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
     alb.ingress.kubernetes.io/healthcheck-port: "8085"
-    alb.ingress.kubernetes.io/healthcheck-path: /v1/sys/health
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
 spec:
   ingressClassName: alb
   rules:
