@@ -13,9 +13,11 @@ spec:
       labels:
         app: backend
     spec:
+      imagePullSecrets:
+        - name: docker-hub-secret
       containers:
         - name: backend
-          image: gksmmf031/rakuraku:97
+          image: gksmmf031/rakuraku:94
           ports:
             - containerPort: 8085
           volumeMounts:
@@ -26,3 +28,4 @@ spec:
         - name: ssh-key-volume
           secret:
             secretName: mongo-ssh-key
+
