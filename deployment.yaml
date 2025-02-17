@@ -13,8 +13,6 @@ spec:
       labels:
         app: backend
     spec:
-      imagePullSecrets:
-        - name: docker-hub-secret
       containers:
         - name: backend
           image: gksmmf031/rakuraku:94
